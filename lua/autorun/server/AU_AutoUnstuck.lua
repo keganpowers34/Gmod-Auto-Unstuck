@@ -209,6 +209,7 @@ local function AnnounceTP(ply)
     if AnnounceTPs:GetInt() < 1 then return end -- AutoUnstuck_Announce ConVar
     for k,v in pairs(player.GetAll()) do
         if v != ply then  -- Don't announce to the player that was teleported  
+	local AnnounceString = string.format("[Auto Unstuck] %s %s", ply:Nick(), "was teleported because they were stuck!")
             v:ChatPrint(AnnounceString)
         end
     end
