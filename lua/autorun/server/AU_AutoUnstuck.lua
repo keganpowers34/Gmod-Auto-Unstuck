@@ -156,7 +156,6 @@ end
 
 local AUPickTPSpot, AU_InvalidTPSpot -- Define at same time so they can call eachother
 function AU_InvalidTPSpot(ply)
-    print("[AutoUnstuck] A TP spot was invalid! Adding entities to TPSpots again...") 
     AUAddEnts() 
     AUPickTPSpot(ply) -- Don't let them just sit there being stuck
 end
@@ -167,7 +166,6 @@ local function CheckIfStuck(ply)
         if timer.Exists(TimerName) then return end
 		
         ply.LastAutoUnstuck = CurTime()
-        ply:ChatPrint("[Auto Unstuck] has determined you're stuck, try moving...")   
         hook.Run("AU.PlayerStuck", ply)                 
         
         timer.Create(TimerName, TimeBeforeTP:GetInt(), 1, function() -- Timer's time based on AutoUnstuck_TimeForTP ConVar
@@ -209,7 +207,6 @@ end)
 
 local function AnnounceTP(ply)
     if AnnounceTPs:GetInt() < 1 then return end -- AutoUnstuck_Announce ConVar
-    local AnnounceString = string.format("[Auto Unstuck] %s %s", ply:Nick(), "was teleported because they were stuck!")
     for k,v in pairs(player.GetAll()) do
         if v != ply then  -- Don't announce to the player that was teleported  
             v:ChatPrint(AnnounceString)
